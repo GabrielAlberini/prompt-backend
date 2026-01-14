@@ -2,6 +2,8 @@
 import bcrypt from "bcryptjs"
 import { User } from "../models/auth.model.js"
 import jwt from "jsonwebtoken"
+import { config } from "dotenv"
+config()
 
 const register = async (req, res) => {
   try {

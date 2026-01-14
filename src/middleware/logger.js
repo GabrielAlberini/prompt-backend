@@ -2,8 +2,8 @@ import fs from "fs"
 import path from "path"
 import nodemailer from "nodemailer"
 import { errorEmailTemplate } from "../templates/email.js"
-
-process.loadEnvFile()
+import { config } from "dotenv"
+config()
 
 const logDir = path.join(process.cwd(), "log")
 

@@ -7,7 +7,8 @@ const authRouter = Router()
 
 authRouter.post("/register", register)
 authRouter.post("/login", login)
-authRouter.post("/refresh", authMiddleware, refreshToken)
+
 authRouter.patch("/profile", authMiddleware, updateProfileValidator, handleValidationErrors, updateProfile)
+authRouter.post("/refresh", authMiddleware, refreshToken)
 
 export { authRouter }

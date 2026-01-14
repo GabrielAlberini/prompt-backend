@@ -1,6 +1,3 @@
-// punto de entrada
-// archivo que ejecuta servicios
-
 import express from "express"
 import { connectDb, getDbStatus } from "./config/mongo.js"
 import { taskRouter } from "./routes/taskRouter.js"
@@ -21,7 +18,6 @@ let URI_DB = process.env.NODE_ENV === "production"
 const server = express()
 server.use(cors())
 server.use(express.json())
-
 server.use(morgan(logger))
 
 server.get("/", (req, res) => {
@@ -42,7 +38,7 @@ server.get("/", (req, res) => {
   })
 })
 
-server.use("/auth", authRouter)
+server.use("/auth", limiter, authRouter)
 server.use("/tasks", authMiddleware, taskRouter)
 
 server.use((req, res) => {
