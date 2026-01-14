@@ -14,6 +14,9 @@ import { config } from "dotenv"
 config()
 
 const PORT = process.env.PORT
+let URI_DB = process.env.NODE_ENV === "production"
+  ? process.env.URI_DB_REMOTE
+  : process.env.URI_DB
 
 const server = express()
 server.use(cors())
@@ -39,7 +42,7 @@ server.get("/", (req, res) => {
   })
 })
 
-server.use("/auth", limiter, authRouter)
+server.use("/auth", authRouter)
 server.use("/tasks", authMiddleware, taskRouter)
 
 server.use((req, res) => {
@@ -55,5 +58,5 @@ server.use((req, res) => {
 
 server.listen(PORT, () => {
   console.log("✅ Conectado al puerto http://localhost:1111")
-  connectDb()
+  connectDb(URI_DB)
 })
